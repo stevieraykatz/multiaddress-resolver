@@ -26,11 +26,12 @@ This resolver extension also enables a critical step-change in how onchain primi
 
 The field `addresses` is introduced which permits a set of addresses to be supported by a single ENS name.
 
-A new accessor function for resolvers is specified:
+Two new accessor functions for resolvers are specified, the first for "default" `cointype == 60` behavior, and the second for more flexible ENSIP-11 compatible EVM network-as-cointype address mappings. 
 
 ```solidity
-interface MultiaddressResolver {
-    function addresses(bytes32 node) external view returns (address[] memory);
+interface IMultiaddressResolver {
+    function addrs(bytes32 node) external view returns (address[] memory);
+    function addrs(bytes32 node, uint256 cointype) external view returns (address[] memory);
 }
 ```
 
