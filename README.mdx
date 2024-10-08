@@ -40,14 +40,14 @@ When called on a resolver, this function must return the EVM-compatible list of 
 Two new events for resolvers are defined:
 
 ```solidity
-event AddressesAdded(bytes32 indexed node, address[] addresses);
+event AddressesAdded(bytes32 indexed node, uint256 cointype, address[] addresses);
 
-event AddressesRemoved(bytes32 indexed node, address[] addresses);
+event AddressesRemoved(bytes32 indexed node, uint256 cointype, address[] addresses);
 ```
 
 ### Reverse Resolution
 
-This specification is compatible with existing specifications for reverse resolution, specifically ENSIP-19. As of now, the set of addresses stored in the Addresses field are not to be confused with "primary" names. 
+This specification is intended to be compatible with existing specifications for reverse resolution, specifically [ENSIP-19](https://docs.ens.domains/ensip/19). As of now, the set of addresses stored in the Addresses field are not to be confused with ["primary"](https://docs.ens.domains/web/reverse) names.
 
 
 ## Copyright
