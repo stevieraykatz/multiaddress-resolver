@@ -1,66 +1,55 @@
-## Foundry
+{/** @type {import('@/lib/mdxPageProps').MdxMetaProps} */}
+export const meta = {
+    description: 'Specifies multi-address resolution',
+    contributors: [
+        'katzman.base.eth',
+    ],
+    ensip: {
+        status: 'draft',
+        created: '2024-10-01',
+    }
+};
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+# ENSIP-XX: Multiaddress Resolution
 
-Foundry consists of:
+## Abstract
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+This ENSIP specifies a new mechanism for associating multiple addresses with a single name. This should allow a user to collate their onchain identity within a single namespace.
 
-## Documentation
+## Motivation
 
-https://book.getfoundry.sh/
+Users leverage multiple wallets for many reaons but each wallet is just another facet of their onchain identity. With a Multiaddress resolver profile, users would have the option to associate any number of their active wallets with their identity.
 
-## Usage
+This resolver extension also enables a critical step-change in how onchain primitives operate: Identity-based attestations, reputation, and builder activity are unlocked once signals are indexed against a namespace instead of a wallet address. 
 
-### Build
+## Specification
 
-```shell
-$ forge build
+The field `addresses` is introduced which permits a set of addresses to be supported by a single ENS name.
+
+A new accessor function for resolvers is specified:
+
+```solidity
+interface MultiaddressResolver {
+    function addresses(bytes32 node) external view returns (address[] memory);
+}
 ```
 
-### Test
+When called on a resolver, this function must return the EVM-compatible list of addresses stored for the specified namehash.
 
-```shell
-$ forge test
+Two new events for resolvers are defined:
+
+```solidity
+event AddressesAdded(bytes32 indexed node, address[] addresses);
+
+event AddressesRemoved(bytes32 indexed node, address[] addresses);
 ```
 
-### Format
+### Reverse Resolution
 
-```shell
-$ forge fmt
-```
+This specification is compatible with existing specifications for reverse resolution, specifically ENSIP-19. As of now, the set of addresses stored in the Addresses field are not to be confused with "primary" names. 
 
-### Gas Snapshots
 
-```shell
-$ forge snapshot
-```
+## Copyright
 
-### Anvil
+Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
 
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
