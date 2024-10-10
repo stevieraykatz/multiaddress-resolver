@@ -18,9 +18,14 @@ This ENSIP specifies a new mechanism for associating multiple addresses with a s
 
 ## Motivation
 
-Users leverage multiple wallets for many reaons but each wallet is just another facet of their onchain identity. With a Multiaddress resolver profile, users would have the option to associate any number of their active wallets with their identity.
+This specification attempts to accomplish two primary goals: 1. remove the concept of addresses from the day-to-day experience of end-users and 2. make ENS identities the central hub for a user's captial-I Identity. 
 
-This resolver extension also enables a critical step-change in how onchain primitives operate: Identity-based attestations, reputation, and builder activity are unlocked once signals are indexed against a namespace instead of a wallet address. 
+More discretely, the primary motivations for multiaddress resolution are:
+1. Onchain activity collation: all of the addresses a user associates with their name can be meaningfully and trustlessly attributed to them. This primitive unlocks true identity-based signals like reputation, builder score, and possibly paves the way towards credit. 
+2. Portable identity across dApps: with multiaddress resolution, a user can connect one of their many associated wallets to an app and have their identity populated by leveraging multiaddress compatible reverse resolution. 
+3. Name-based authentication patterns: dApps/contracts can start to leverage namespaces for auth in lieu of addresses, allowing a user to access permissioned methods with linked accounts in the multiaddress resolver. 
+4. Recovery patterns: alongside the #3, recovery owners could be added to an identity space.
+5. Compatibility with ephemeral smart contract wallets: there have been some discussions about leveraging scoped, ad-hoc SCWs for privacy-preserving payments and dApp-specific permissions. Both would result in a user having 10s or possibly 100s of accounts. Associating each of these with a parent identity via multiaddress unifies the onchain experience for the user (enabled by my point above about portability, #2).  
 
 ## Specification
 
